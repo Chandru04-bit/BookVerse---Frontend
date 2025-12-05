@@ -16,7 +16,7 @@ export const AdminDataProvider = ({ children }) => {
   useEffect(() => {
     const fetchOrders = async () => {
       try {
-        const res = await axios.get("https://book-verse-amber.vercel.appapi/orders");
+        const res = await axios.get("https://book-verse-backend-azya.vercel.app/api/users/me'");
         const data = Array.isArray(res.data)
           ? res.data
           : res.data.orders || [];
