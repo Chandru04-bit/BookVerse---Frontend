@@ -27,12 +27,7 @@ const LoginSignup = () => {
     try {
       // Admin Login
       if (isLogin && email === "admin@bookverse.com" && password === "admin123") {
-        const adminUser = {
-          role: "admin",
-          name: "Admin User",
-          email,
-        };
-
+        const adminUser = { role: "admin", name: "Admin User", email };
         adminLogin(adminUser);
         navigate("/admin/home", { replace: true });
         return;
@@ -40,13 +35,13 @@ const LoginSignup = () => {
 
       // Normal User Login
       if (isLogin) {
-        await login({ email, password });
+        await login({ email, password }); // HTTP-only cookie sent automatically
         navigate("/home", { replace: true });
         return;
       }
 
       // Signup User
-      await signup({ name, email, password });
+      await signup({ name, email, password }); // HTTP-only cookie sent automatically
       navigate("/home", { replace: true });
     } catch (err) {
       console.error(err);
@@ -114,3 +109,5 @@ const LoginSignup = () => {
 };
 
 export default LoginSignup;
+
+
