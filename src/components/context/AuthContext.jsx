@@ -5,7 +5,7 @@ import axios from "axios";
 import toast from "react-hot-toast";
 
 // Set Axios base URL
-axios.defaults.baseURL = "http://https://book-verse-frontend-gold.vercel.app//";
+axios.defaults.baseURL = "http://localhost:5000";
 
 const AuthContext = createContext();
 export const useAuth = () => useContext(AuthContext);
@@ -44,7 +44,7 @@ export const AuthProvider = ({ children }) => {
     try {
       setLoading(true);
 
-      const { data } = await axios.post("https://book-verse-backend.vercel.app/api/users/register'", {
+      const { data } = await axios.post("/api/users/register", {
         name,
         email,
         password,
@@ -71,7 +71,7 @@ export const AuthProvider = ({ children }) => {
     try {
       setLoading(true);
 
-      const { data } = await axios.post("https://book-verse-backend.vercel.app/api/users/login", {
+      const { data } = await axios.post("/api/users/login", {
         email,
         password,
       });

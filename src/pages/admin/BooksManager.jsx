@@ -6,7 +6,7 @@ import { Search, Edit, Trash2, PlusCircle, BookOpen, XCircle, BarChart3 } from "
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid } from "recharts";
 import { motion, AnimatePresence } from "framer-motion";
 
-const API_URL = "https://book-verse-amber.vercel.appapi/books";
+const API_URL = "http://localhost:5000/api/books";
 
 const BookManager = () => {
   const [books, setBooks] = useState([]);

@@ -21,7 +21,7 @@ const BookDetails = () => {
 
     const fetchBook = async () => {
       try {
-        const res = await axios.get(`https://book-verse-amber.vercel.appapi/books/${id}`);
+        const res = await axios.get(`http://localhost:5000/api/books/${id}`);
         const data = res.data?.book || res.data;
 
         if (!data) setError("Book not found.");
@@ -70,7 +70,7 @@ const BookDetails = () => {
   else if (book.image)
     bookImage = book.image.startsWith("http")
       ? book.image
-      : `https://book-verse-frontend-gold.vercel.app/${book.image}`;
+      : `http://localhost:5000/${book.image}`;
 
   return (
     <section className="py-20 px-6 md:px-20 bg-gradient-to-b from-white via-gray-50 to-slate-100 min-h-screen">

@@ -1,0 +1,24 @@
+@import "tailwindcss";
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 400;
+  color: #1f2937; /* Tailwind’s gray-800 */
+  background-color: #f9fafb;
+}
+
+/* Headings */
+h1, h2, h3, h4 {
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+/* Buttons & Links */
+button, a {
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+
