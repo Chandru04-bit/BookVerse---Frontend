@@ -4,24 +4,35 @@ import React, { createContext, useContext, useState, useEffect } from "react";
 import axios from "axios";
 import toast from "react-hot-toast";
 
+// ---------------------------
 // Axios setup
-axios.defaults.baseURL = "https://book-verse-backend-ga1j.vercel.app"; // your deployed backend
-axios.defaults.withCredentials = true; // send HTTP-only cookies
+// ---------------------------
+axios.defaults.baseURL = "https://book-verse-backend-azya.vercel.app"; // Live backend
+axios.defaults.withCredentials = true; // Send HTTP-only cookies
 
+// ---------------------------
+// Create Context
+// ---------------------------
 const AuthContext = createContext();
 export const useAuth = () => useContext(AuthContext);
 
+// ---------------------------
+// Auth Provider
+// ---------------------------
 export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(null); // no localStorage
+  const [user, setUser] = useState(null);
   const [admin, setAdmin] = useState(null);
   const [loading, setLoading] = useState(true);
 
+  // ---------------------------
   // Check if user is logged in on mount
+  // ---------------------------
   useEffect(() => {
     const checkUser = async () => {
       try {
         setLoading(true);
-        const { data } = await axios.get("https://your-backend.vercel.app/api/users/me");
+        // ✅ Relative path
+        const { data } = await axios.get("/api/users/me");
         setUser(data.user || null);
       } catch (err) {
         setUser(null);
