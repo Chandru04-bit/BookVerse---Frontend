@@ -10,7 +10,7 @@ const BookList = () => {
   useEffect(() => {
     const fetchBooks = async () => {
       try {
-        const response = await fetch("http://localhost:5000/api/books");
+        const response = await fetch("https://your-backend.vercel.app/api/books");
         const data = await response.json();
         if (data.success) setBooks(data.books);
         else setBooks([]);
@@ -45,7 +45,7 @@ const BookList = () => {
                     book.cover?.startsWith("http")
                       ? book.cover
                       : book.cover
-                      ? `http://localhost:5000/uploads/${book.cover}`
+                      ? `https://your-backend.vercel.app/uploads/${book.cover}`
                       : "/assets/images/fallback.jpg"
                   }
                   alt={book.title}

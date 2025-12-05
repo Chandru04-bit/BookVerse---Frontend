@@ -18,7 +18,6 @@ const LoginSignup = () => {
     e.preventDefault();
     setError("");
 
-    // Validation
     if (!email.trim() || !password.trim() || (!isLogin && !name.trim())) {
       setError("All fields are required");
       return;
@@ -27,24 +26,22 @@ const LoginSignup = () => {
     try {
       // Admin Login
       if (isLogin && email === "admin@bookverse.com" && password === "admin123") {
-        const adminUser = { role: "admin", name: "Admin User", email };
-        adminLogin(adminUser);
+        adminLogin({ role: "admin", name: "Admin User", email });
         navigate("/admin/home", { replace: true });
         return;
       }
 
-      // Normal User Login
+      // User Login
       if (isLogin) {
-        await login({ email, password }); // HTTP-only cookie sent automatically
+        await login({ email, password });
         navigate("/home", { replace: true });
         return;
       }
 
-      // Signup User
-      await signup({ name, email, password }); // HTTP-only cookie sent automatically
+      // Signup
+      await signup({ name, email, password });
       navigate("/home", { replace: true });
     } catch (err) {
-      console.error(err);
       setError(err?.response?.data?.message || "Something went wrong");
     }
   };
@@ -109,5 +106,3 @@ const LoginSignup = () => {
 };
 
 export default LoginSignup;
-
-

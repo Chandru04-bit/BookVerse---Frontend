@@ -37,7 +37,7 @@ const Explore = () => {
   useEffect(() => {
     const fetchBooks = async () => {
       try {
-        const res = await axios.get("http://localhost:5000/api/books");
+        const res = await axios.get("https://your-backend.vercel.app/api/books");
         setBooks(res.data.books || res.data);
         setError("");
       } catch (err) {
@@ -177,7 +177,7 @@ const Explore = () => {
               book.image && book.image.startsWith("http")
                 ? book.image
                 : book.image
-                ? `http://localhost:5000/${book.image}`
+                ? `https://your-backend.vercel.app/${book.image}`
                 : "/assets/images/fallback.jpg";
 
             return (

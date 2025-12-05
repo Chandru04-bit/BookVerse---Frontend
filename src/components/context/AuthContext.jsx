@@ -4,26 +4,24 @@ import React, { createContext, useContext, useState, useEffect } from "react";
 import axios from "axios";
 import toast from "react-hot-toast";
 
-// Set Axios base URL
-axios.defaults.baseURL = "https://your-backend.vercel.app"; // replace with your deployed backend URL
-axios.defaults.withCredentials = true; // Important to send cookies
+// Axios setup
+axios.defaults.baseURL = "https://book-verse-backend-ga1j.vercel.app"; // your deployed backend
+axios.defaults.withCredentials = true; // send HTTP-only cookies
 
 const AuthContext = createContext();
 export const useAuth = () => useContext(AuthContext);
 
 export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(null); // No localStorage
+  const [user, setUser] = useState(null); // no localStorage
   const [admin, setAdmin] = useState(null);
-  const [loading, setLoading] = useState(true); // Start as loading
+  const [loading, setLoading] = useState(true);
 
-  // ---------------------------
   // Check if user is logged in on mount
-  // ---------------------------
   useEffect(() => {
     const checkUser = async () => {
       try {
         setLoading(true);
-        const { data } = await axios.get("/api/users/me"); // backend should return user if cookie valid
+        const { data } = await axios.get("https://your-backend.vercel.app/api/users/me");
         setUser(data.user || null);
       } catch (err) {
         setUser(null);
@@ -31,22 +29,16 @@ export const AuthProvider = ({ children }) => {
         setLoading(false);
       }
     };
-
     checkUser();
   }, []);
 
   // ---------------------------
-  // USER SIGNUP
+  // Signup
   // ---------------------------
   const signup = async ({ name, email, password }) => {
     try {
       setLoading(true);
-      const { data } = await axios.post(
-        "/api/users/signup",
-        { name, email, password },
-        { withCredentials: true }
-      );
-
+      const { data } = await axios.post("/api/users/signup", { name, email, password });
       setUser(data.user);
       setAdmin(null);
       toast.success("Signup successful!");
@@ -60,17 +52,12 @@ export const AuthProvider = ({ children }) => {
   };
 
   // ---------------------------
-  // USER LOGIN
+  // Login
   // ---------------------------
   const login = async ({ email, password }) => {
     try {
       setLoading(true);
-      const { data } = await axios.post(
-        "/api/users/login",
-        { email, password },
-        { withCredentials: true }
-      );
-
+      const { data } = await axios.post("/api/users/login", { email, password });
       setUser(data.user);
       setAdmin(null);
       toast.success("Login successful!");
@@ -84,7 +71,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   // ---------------------------
-  // ADMIN LOGIN (DEMO)
+  // Admin Login (Demo)
   // ---------------------------
   const adminLogin = (adminData) => {
     setAdmin(adminData);
@@ -93,11 +80,11 @@ export const AuthProvider = ({ children }) => {
   };
 
   // ---------------------------
-  // LOGOUT
+  // Logout
   // ---------------------------
   const logout = async () => {
     try {
-      await axios.post("/api/users/logout", {}, { withCredentials: true });
+      await axios.post("/api/users/logout");
     } catch (err) {
       console.error(err);
     } finally {

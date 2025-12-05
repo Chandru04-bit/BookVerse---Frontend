@@ -21,7 +21,7 @@ const BookDetails = () => {
 
     const fetchBook = async () => {
       try {
-        const res = await axios.get(`http://localhost:5000/api/books/${id}`);
+        const res = await axios.get(`https://your-backend.vercel.app/api/books/${id}`);
         const data = res.data?.book || res.data;
 
         if (!data) setError("Book not found.");
@@ -37,9 +37,7 @@ const BookDetails = () => {
     fetchBook();
   }, [id, book]);
 
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  };
+  const scrollToTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
 
   if (loading)
     return (
@@ -65,12 +63,12 @@ const BookDetails = () => {
   const originalPrice = Math.floor(book.price / (1 - offer / 100));
   const rating = Math.floor(Math.random() * 2) + 4;
 
+  // Image handling
   let bookImage = "/assets/images/fallback.jpg";
   if (book.img) bookImage = book.img;
-  else if (book.image)
-    bookImage = book.image.startsWith("http")
-      ? book.image
-      : `http://localhost:5000/${book.image}`;
+  else if (book.image) bookImage = book.image.startsWith("http")
+    ? book.image
+    : `https://your-backend.vercel.app/${book.image}`;
 
   return (
     <section className="py-20 px-6 md:px-20 bg-gradient-to-b from-white via-gray-50 to-slate-100 min-h-screen">
@@ -93,7 +91,9 @@ const BookDetails = () => {
         {/* Book Info */}
         <div className="p-10 flex flex-col justify-center">
           <h2 className="text-4xl font-bold text-gray-900 mb-2">{book.title}</h2>
-          <p className="text-blue-600 font-semibold mb-4 text-lg">By {book.author || "Unknown Author"}</p>
+          <p className="text-blue-600 font-semibold mb-4 text-lg">
+            By {book.author || "Unknown Author"}
+          </p>
 
           {/* Rating */}
           <div className="flex items-center gap-1 mb-4">
@@ -128,7 +128,7 @@ const BookDetails = () => {
             <motion.button
               whileTap={{ scale: 0.95 }}
               onClick={() => {
-                toast.dismiss(); // dismiss any previous toast
+                toast.dismiss();
                 addToCart(book);
                 toast.success(`${book.title} added to cart!`);
                 scrollToTop();
